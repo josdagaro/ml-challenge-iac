@@ -11,3 +11,6 @@ r53_private_domain = "internal.mydomain.net"
 
 # ALB
 allowed_customers_mngr_consumers = ["11.0.0.0/24", "12.0.0.0/24"] # as an example
+
+# Secrets Manager
+# The DB credentials are filled from the GitHub Actions secrets (for security purposes)
