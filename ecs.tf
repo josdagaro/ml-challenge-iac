@@ -96,6 +96,31 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_policy" "read_secrets_policy" {
+  name        = "read_secrets_policy"
+  description = "Policy to allow ECS tasks to read secrets from Secrets Manager"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": "${aws_secretsmanager_secret.db_credentials_secret.arn}"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "attach_read_secrets_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.read_secrets_policy.arn
+}
+
 resource "aws_security_group" "ecs_sg_synchronizer" {
   name        = "ecs_sg_synchronizer"
   description = "Allow traffic for synchronizer ECS service"

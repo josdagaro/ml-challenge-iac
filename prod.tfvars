@@ -9,6 +9,5 @@ private_subnet_b_cidr = "10.0.0.192/26"
 r53_public_domain  = "mydomain.net"
 r53_private_domain = "internal.mydomain.net"
 
-
 # ALB
 allowed_customers_mngr_consumers = ["11.0.0.0/24", "12.0.0.0/24"] # as an example

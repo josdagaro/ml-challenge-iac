@@ -32,3 +32,14 @@ variable "r53_private_domain" {
 variable "allowed_customers_mngr_consumers" {
   type = list(string)
 }
+
+# Secrets Manager
+variable "db_credentials_username" {
+  type      = string
+  sensitive = true
+}
+
+variable "db_credentials_password" {
+  type      = string
+  sensitive = true
+}
