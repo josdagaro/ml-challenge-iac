@@ -58,7 +58,7 @@ Este proyecto utiliza Terraform para configurar una infraestructura en AWS que i
      backend "s3" {
        bucket = "your-bucket-name"
        key    = "path/to/your/key"
-       region = "us-west-2"
+       region = "us-east-1"
      }
    }
    ```
