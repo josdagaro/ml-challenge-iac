@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "your-bucket-name"
-    key    = "path/to/your/key"
+    bucket = "bbog-ca-tf-states"
+    key    = "ml.tfstate"
     region = "us-east-1"
   }
 }

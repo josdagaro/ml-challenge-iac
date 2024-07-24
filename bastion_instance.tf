@@ -38,6 +38,7 @@ resource "aws_instance" "bastion" {
   instance_type        = "t2.micro"
   subnet_id            = aws_subnet.private_a.id
   iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.name
+  security_groups      = [aws_security_group.bastion_sg.id]
 
   tags = {
     Name = "bastion"
@@ -47,4 +48,31 @@ resource "aws_instance" "bastion" {
 resource "aws_iam_instance_profile" "ssm_instance_profile" {
   name = "ssm-instance-profile"
   role = aws_iam_role.ssm_role.name
+}
+
+resource "aws_security_group" "bastion_sg" {
+  name        = "bastion_sg"
+  description = "Allow SSH and SSM traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }

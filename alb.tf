@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_lb" "main" {
-  name                       = "internal-alb"
+  name                       = "alb-0"
   internal                   = true
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.alb_sg.id]

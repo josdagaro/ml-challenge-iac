@@ -50,10 +50,3 @@ resource "aws_iam_role_policy_attachment" "eventbridge_policy" {
   role       = aws_iam_role.eventbridge_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEventBridgeFullAccess"
 }
-
-resource "aws_cloudwatch_event_permission" "allow_eventbridge" {
-  principal    = "events.amazonaws.com"
-  statement_id = "AllowEventBridgeToInvokeTargets"
-  action       = "events:PutTargets"
-  source_arn   = aws_cloudwatch_event_rule.synchronizer_schedule.arn
-}
