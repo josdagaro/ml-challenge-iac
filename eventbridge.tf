@@ -11,7 +11,7 @@ resource "aws_cloudwatch_event_target" "synchronizer_target" {
   role_arn  = aws_iam_role.eventbridge_role.arn
 
   ecs_target {
-    task_count          = 0
+    task_count          = 1
     task_definition_arn = aws_ecs_task_definition.dummy_task.arn
     launch_type         = "FARGATE"
     network_configuration {
@@ -48,5 +48,5 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "eventbridge_policy" {
   role       = aws_iam_role.eventbridge_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEventBridgeFullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
 }

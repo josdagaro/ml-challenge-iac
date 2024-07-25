@@ -1,2 +1,3 @@
-plan
-checkov
+perform terraform plan
+perform checkov for security code analysis
+upload tfplan artefact

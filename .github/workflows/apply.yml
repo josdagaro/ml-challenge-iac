@@ -1,1 +1,2 @@
-apply
+obtain the generated tfplan
+perform terraform apply

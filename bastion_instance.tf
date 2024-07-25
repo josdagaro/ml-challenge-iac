@@ -4,7 +4,7 @@ data "aws_ami" "amazon_linux_2" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+    values = ["amzn2-ami-hvm*"]
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "ssm_attach" {
 
 resource "aws_instance" "bastion" {
   ami                  = data.aws_ami.amazon_linux_2.id
-  instance_type        = "t2.micro"
+  instance_type        = "t3.micro"
   subnet_id            = aws_subnet.private_a.id
   iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.name
   security_groups      = [aws_security_group.bastion_sg.id]

@@ -99,3 +99,13 @@ Este proyecto utiliza Terraform para configurar una infraestructura en AWS que i
 Para eliminar todos los recursos creados por Terraform:
    
    `terraform destroy`
+
+## Instalación de Checkov
+
+1. Usando `pip`: `pip install checkov`
+   Usnado `brew`: `brew install checkov`
+
+2. Verifica la instalación: `checkov --version`
+
+3. Escanea el código Terraform para detectar vulnerabilidades:
+   `checkov -d .`

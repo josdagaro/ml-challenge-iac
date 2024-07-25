@@ -10,13 +10,11 @@ resource "aws_rds_cluster" "aurora_cluster" {
   backup_retention_period = 7
   preferred_backup_window = "07:00-09:00"
   apply_immediately       = true
+  skip_final_snapshot     = true
 
-  scaling_configuration {
-    auto_pause               = true
-    max_capacity             = 32
-    min_capacity             = 2
-    seconds_until_auto_pause = 300
-    timeout_action           = "ForceApplyCapacityChange"
+  serverlessv2_scaling_configuration {
+    max_capacity = 1.0
+    min_capacity = 0.5
   }
 
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
