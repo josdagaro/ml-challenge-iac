@@ -38,14 +38,14 @@ Otros servicios importantes que participan en la funcionalidad principal de la s
 - **KMS**: Para garantizar integridad de la data en RDS y Secrets Manager, manteniendo encriptados ambos con una CMK.
 - **Secrets Manager**: Donde se almacenan las credenciales del usuario admin de la base de datos RDS.
 - **EventBridge**: Aquí se encuentra configurada la programación de ejecución del micro-servicio `synchronicer`.
-- **ECR**: Para el registro de imágenes de Docker de ambos micro-servicios: `synchronizer` y `customers-mngr`.
+- **ECR**: Para el registro de imágenes de Docker de ambos micro-servicios: `synchronizer` y `customers-mngr`. Adicionalmente en este mismo servicio se analizan las imágenes para detección de vulnerabilidades.
 - **EC2**: Para una instancia bastion de pruebas que permita desde el interior de la red privada, probar la visibilidad y funcionalidad correcta de los servicios.
 
 En la parte inferior del diagrama se puede notar cómo se supone otras cuentas AWS de la empresa en incluso el datacenter on-premise alusivos a otras áreas de la empresa, son participes como posibles consumidores de la API interna para consulta de clientes posterior a su procesamiento y almacenamiento en la base de datos RDS.
 
 Por motivos relacionados a costos y tiempo, para esta prueba, los recursos a ser aprovisionados en AWS no cubren estos posibles consumidores.
 
-## Otros Servicios AWS Referenciados en el Diagrama
+## Otros Servicios AWS Referenciados en el Diagrama de Arquitectura
 En pos de un diseño de arquitectura en el cual la postura de seguridad es fundamental, en el diagrama vemos otros servicios AWS e incluso de proveedores externos propuestos como un extra en la solución (sin abordarlos en la prueba a nivel de código):
 
 - **CloudTrail**: Suponiendo que la cuenta AWS participante de la solución hace parte de una estructura organizacional robusta por parte de la empresa en AWS, esta cuenta debe contar con un baseline mandatorio para registrar todos los eventos que sucedan en la misma. Como opcional se plantea la integración de un SIEM que reciba los eventos de CloudTrail (a nivel organizacional) que pueda analizar y detectar comportamientos anómalos.
@@ -57,3 +57,9 @@ En pos de un diseño de arquitectura en el cual la postura de seguridad es funda
 - **Transit Gateway**: Que permite interconectar múltiples VPCs e incluso centralizar conexiones VPN para tráfico hacia on-premise y otros destinos. En este escenario supuesto, otras VPCs de otras áreas de la empresa e incluso mediante conexión VPN con los servidores on-premise, logran consumir la API interna disponibilizada para obtener información de clientes.
 
 - **Checkpoint CloudGuard**: Una herramienta paga de un tercero que permite analizar la postura de seguridad de los recursos ya alojados en una cuenta AWS, con esto se pueden desarrollar planes de mejora continua de la seguridad general de la infraestructura.
+
+## Flujo de Despliegue con GitHub Actions
+
+El flujo consta de dos fases, uno para revisión, y otro para aplicar los cambios de infraestructura por medio de código. A continuación el diagrama:
+
+![Flujo Despliegue IaC GitHub](https://github.com/josdagaro/ml-challenge-iac/blob/main/docs/ml-challenge-gh.drawio.png)
