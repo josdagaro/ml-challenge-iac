@@ -5,4 +5,4 @@ La solución aprovisionada por medio de infraestructura como código despliega l
 
 A continuación el diagrama:
 
-![AWS Diagrama de Arquitectura](https://github.com/josdagaro/ml-challenge-iac/blob/main/docs/ml-challenge-aws.drawio.png)
+![AWS Diagrama de Arquitectura](https://github.com/josdagaro/ml-challenge-iac/blob/ft/dev/docs/ml-challenge-aws.drawio.png)
