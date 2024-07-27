@@ -108,3 +108,6 @@ Para eliminar todos los recursos creados por Terraform:
 
 3. Escanea el código Terraform para detectar vulnerabilidades:
   `checkov -d .`
+
+## Arquitectura y Proceso de la Solución
+Para conocer el detalle de la arquitectura por favor haga click [aquí](https://github.com/josdagaro/ml-challenge-iac/blob/main/docs/architecture-and-workflow.md).
