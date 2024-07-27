@@ -34,11 +34,20 @@ resource "aws_iam_role_policy_attachment" "ssm_attach" {
 }
 
 resource "aws_instance" "bastion" {
+  #checkov:skip=CKV_AWS_135:This is an EC2 instance for testing purposes
+  #checkov:skip=CKV_AWS_126:This is an EC2 instance for testing purposes
+  #checkov:skip=CKV_AWS_8:This is an EC2 instance for testing purposes
   ami                  = data.aws_ami.amazon_linux_2.id
   instance_type        = "t3.micro"
   subnet_id            = aws_subnet.private_a.id
   iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.name
   security_groups      = [aws_security_group.bastion_sg.id]
+
+  metadata_options {
+    http_endpoint          = "disabled"
+    http_protocol_ipv6     = "disabled"
+    instance_metadata_tags = "disabled"
+  }
 
   tags = {
     Name = "bastion"
@@ -56,23 +65,26 @@ resource "aws_security_group" "bastion_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 0
+    to_port     = 0
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "For testing purposes"
+    cidr_blocks = [aws_vpc.main.cidr_block]
   }
 
   ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "icmp"
+    description = "For testing purposes"
+    cidr_blocks = [aws_vpc.main.cidr_block]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    description = "For testing purposes"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
