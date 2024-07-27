@@ -1,0 +1,46 @@
+name: Apply
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  tf_version: 1.9.2
+
+jobs:
+  apply:
+    environment: writer
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      REGION: "us-east-1"
+      TF_BUCKET_NAME: bbog-ca-tf-states
+      TF_STATE_FILE_NAME: ml.tfstate
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.tf_version }}
+      - name: terraform init
+        id: init
+        run: |
+          terraform init \
+            -input=false \
+            -backend-config="bucket=$TF_BUCKET_NAME" \
+            -backend-config="key=$TF_STATE_FILE_NAME" \
+            -backend-config="region=$REGION" \
+            -backend-config="encrypt=true"
+      - name: setup aws-cli
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+      - name: terraform apply
+        id: apply
+        run: terraform apply -input=false -compact-warnings -var-file=prod.tfvars -auto-approve
+        env:
+          TF_VAR_db_credentials_username: ${{ secrets.DB_SECRET_USER }}
+          TF_VAR_db_credentials_password: ${{ secrets.DB_SECRET_PASS }}
