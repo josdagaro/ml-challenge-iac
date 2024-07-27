@@ -50,6 +50,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
+    description = "For testing purposes"
     cidr_blocks = concat([var.vpc_cidr], var.allowed_customers_mngr_consumers)
   }
 
@@ -57,6 +58,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    description = "For testing purposes"
     cidr_blocks = concat([var.vpc_cidr], var.allowed_customers_mngr_consumers)
   }
 }
