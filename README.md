@@ -80,14 +80,14 @@ Este proyecto utiliza Terraform para configurar una infraestructura en AWS que i
 
 ### Archivos de Configuración
 
-  - kms.tf: Configuración de la clave KMS para cifrado
-  - rds.tf: Configuración del RDS Aurora Serverless
-  - ecs.tf: Configuración del ECS Cluster y servicios
-  - alb.tf: Configuración del Application Load Balancer
-  - certificate_manager.tf: Configuración de ACM y certificados
-  - route53.tf: Configuración de Route53
-  - secrets_manager.tf: Configuración de Secrets Manager
-  - eventbridge.tf: Configuración de EventBridge para tareas programadas
+  - `kms.tf`: Configuración de la clave KMS para cifrado
+  - `rds.tf`: Configuración del RDS Aurora Serverless
+  - `ecs.tf`: Configuración del ECS Cluster y servicios
+  - `alb.tf`: Configuración del Application Load Balancer
+  - `certificate_manager.tf`: Configuración de ACM y certificados
+  - `route53.tf`: Configuración de Route53
+  - `secrets_manager.tf`: Configuración de Secrets Manager
+  - `eventbridge.tf`: Configuración de EventBridge para tareas programadas
 
 ### Notas
 
