@@ -74,7 +74,7 @@ resource "aws_kms_key" "aurora_key" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "kms:ViaService": "rds.${data.aws_caller_identity.current.region}.amazonaws.com"
+          "kms:ViaService": "rds.us-east-1.amazonaws.com"
         }
       }
     }
