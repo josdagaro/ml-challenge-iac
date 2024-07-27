@@ -1,6 +1,7 @@
 resource "aws_secretsmanager_secret" "db_credentials_secret" {
   name        = "rds-db-credentials"
   description = "RDS database credentials"
+  kms_key_id  = aws_kms_key.secrets_key.arn
 
   tags = {
     Name = "rds-db-credentials"
