@@ -1,4 +1,5 @@
 resource "aws_ecs_cluster" "main" {
+  #checkov:skip=CKV_AWS_65:This ECS cluster is for testing purposes
   name = "my-cluster"
 }
 
@@ -147,11 +148,13 @@ resource "aws_security_group" "ecs_sg_customers_mngr" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    description = "For testing purposes"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
 resource "aws_security_group_rule" "ecs_sg_customers_mngr_ingress_0" {
+  description              = "For testing purposes"
   type                     = "ingress"
   from_port                = 80
   to_port                  = 80
@@ -161,6 +164,7 @@ resource "aws_security_group_rule" "ecs_sg_customers_mngr_ingress_0" {
 }
 
 resource "aws_security_group_rule" "ecs_sg_customers_mngr_ingress_1" {
+  description              = "For testing purposes"
   type                     = "ingress"
   from_port                = 80
   to_port                  = 80

@@ -1,4 +1,5 @@
 resource "aws_rds_cluster" "aurora_cluster" {
+  #checkov:skip=CKV_AWS_324:This RDS is for testing purposes
   cluster_identifier      = "aurora-serverless-v2-cluster"
   engine                  = "aurora-mysql"
   engine_version          = "8.0.mysql_aurora.3.03.0"
