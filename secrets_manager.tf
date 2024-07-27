@@ -1,4 +1,5 @@
 resource "aws_secretsmanager_secret" "db_credentials_secret" {
+  #checkov:skip=CKV2_AWS_57:This Secret Manager is for testing purposes
   name        = "rds-db-credentials"
   description = "RDS database credentials"
   kms_key_id  = aws_kms_key.secrets_key.arn
