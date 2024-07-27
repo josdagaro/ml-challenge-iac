@@ -132,9 +132,7 @@ resource "aws_kms_key" "secrets_key" {
       "Sid": "Allow ECS to use the key",
       "Effect": "Allow",
       "Principal": {
-        "AWS": [
-          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecs-task-execution-role",
-        ]
+        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecs-task-execution-role"
       },
       "Action": [
         "kms:Encrypt",
