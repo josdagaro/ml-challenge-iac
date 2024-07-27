@@ -101,6 +101,9 @@ Para eliminar todos los recursos creados por Terraform:
   `terraform destroy`
 
 ## Instalación de Checkov
+La herramienta Checkov es vital para realizar análisis estático de código de infraestructura, en este caso de los recursos AWS que se aprovisionan mediante Terraform y garantizar una buena postura de seguridad previo al aprovisionamiento de la misma.
+
+A continuación pasos para la instalación y ejecución:
 
 1. Usando `pip`: `pip install checkov` o usando `brew`: `brew install checkov`
 
@@ -111,3 +114,6 @@ Para eliminar todos los recursos creados por Terraform:
 
 ## Arquitectura y Proceso de la Solución
 Para conocer el detalle de la arquitectura por favor haga click [aquí](https://github.com/josdagaro/ml-challenge-iac/blob/main/docs/architecture-and-workflow.md).
+
+## Análisis y Recomendaciones de Seguridad
+Para conocer el detalle del análisis y recomendaciones por favor haga click [aquí](https://github.com/josdagaro/ml-challenge-iac/blob/main/docs/sec-analysis.md).
