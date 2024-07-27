@@ -57,7 +57,7 @@ resource "aws_ecs_service" "customers_mngr" {
 resource "aws_ecr_repository" "synchronizer" {
   #checkov:skip=CKV_AWS_136:This private ECR is for testing purposes
   name                 = "synchronizer"
-  image_tag_mutability = "INMUTABLE"
+  image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
@@ -67,7 +67,7 @@ resource "aws_ecr_repository" "synchronizer" {
 resource "aws_ecr_repository" "customers_mngr" {
   #checkov:skip=CKV_AWS_136:This private ECR is for testing purposes
   name                 = "customers-mngr"
-  image_tag_mutability = "INMUTABLE"
+  image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
