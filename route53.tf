@@ -4,7 +4,10 @@ data "aws_route53_zone" "public" {
 }
 
 resource "aws_route53_zone" "private" {
+  #checkov:skip=CKV2_AWS_39:This DNS is for testing purposes
+  #checkov:skip=CKV2_AWS_38:This DNS is for testing purposes
   name = var.r53_private_domain
+
   vpc {
     vpc_id = aws_vpc.main.id
   }
