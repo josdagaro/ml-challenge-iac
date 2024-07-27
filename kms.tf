@@ -97,6 +97,58 @@ resource "aws_kms_key" "secrets_key" {
   deletion_window_in_days = 7
   enable_key_rotation     = true
 
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Id": "key-default-1",
+  "Statement": [
+    {
+      "Sid": "Enable IAM User Permissions",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+      },
+      "Action": "kms:*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "Allow use of the key for Secrets Manager",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "secretsmanager.amazonaws.com"
+      },
+      "Action": [
+        "kms:GenerateDataKey",
+        "kms:Decrypt"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "kms:ViaService": "secretsmanager.us-east-1.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "Allow ECS to use the key",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecs-task-execution-role",
+        ]
+      },
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+
   tags = {
     Name = "secrets_key"
   }
