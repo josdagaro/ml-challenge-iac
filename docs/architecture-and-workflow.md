@@ -13,18 +13,18 @@ En este diagrama de alto nivel, vamos como la solución se despliega en una arqu
 
 Esta cuenta AWS denominada "Account A" en el diagrama, donde se encuentra concentrada la solución, contiene una VPC con la siguiente topología de red:
 
-- Segmento de red de VPC: 10.0.0.0/24
-- Segmento de subred pública (zona A): 10.0.0.0/26
-- Segmento de subred pública (zona B): 10.0.0.64/26
-- Segmento de subred privada (zona A): 10.0.0.128/26
-- Segmento de subred privada (zona B): 10.0.0.192/26
+- **Segmento de red de VPC**: 10.0.0.0/24
+- **Segmento de subred pública (zona A)**: 10.0.0.0/26
+- **Segmento de subred pública (zona B)**: 10.0.0.64/26
+- **Segmento de subred privada (zona A)**: 10.0.0.128/26
+- **Segmento de subred privada (zona B)**: 10.0.0.192/26
 
 Y bajo esa misma topología de red, se cuenta con dos NAT Gateways alojados en las subredes públicas, los cuales permiten mediante sus IPs elásticas (públicas) asociadas, enrutar el tráfico hacia el Internet Gateway asociado a la VPC.
 
 En otras palabras, en las tablas de rutas de la VPC:
 
-- Tablas de rutas privadas (una por zona): permiten enrutar el tráfico entre los componentes de las subredes privadas y tener salida a Internet mediante el respectivo NAT Gateway asociado a su zona.
-- Tablas de rutas públicas (una por zona): permiten enrutar el tráfico entre los componentes de la DMZ (zona demilitarizada), y tener salida a Internet mediante el Internet Gateway asociado a la VPC.
+- **Tablas de rutas privadas (una por zona)**: permiten enrutar el tráfico entre los componentes de las subredes privadas y tener salida a Internet mediante el respectivo NAT Gateway asociado a su zona.
+- **Tablas de rutas públicas (una por zona)**: permiten enrutar el tráfico entre los componentes de la DMZ (zona demilitarizada), y tener salida a Internet mediante el Internet Gateway asociado a la VPC.
 
 En las subredes privadas, podemos encontrar alojados los servicios principales de la solución, como lo son:
 
