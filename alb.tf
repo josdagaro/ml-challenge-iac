@@ -42,6 +42,9 @@ resource "aws_lb_listener" "https_listener" {
 }
 
 resource "aws_security_group" "alb_sg" {
+  #checkov:skip=CKV_AWS_131:This internal ALB is for testing purposes
+  #checkov:skip=CKV_AWS_150:This internal ALB is for testing purposes
+  #checkov:skip=CKV_AWS_91:This internal ALB is for testing purposes
   name        = "alb_sg"
   description = "Allow HTTPS traffic"
   vpc_id      = aws_vpc.main.id

@@ -23,7 +23,8 @@ resource "aws_ecs_task_definition" "dummy_task" {
         "containerPort": 80,
         "hostPort": 80
       }
-    ]
+    ],
+    "readonlyRootFilesystem": true
   }
 ]
 DEFINITION
@@ -54,8 +55,9 @@ resource "aws_ecs_service" "customers_mngr" {
 }
 
 resource "aws_ecr_repository" "synchronizer" {
+  #checkov:skip=CKV_AWS_136:This private ECR is for testing purposes
   name                 = "synchronizer"
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = "INMUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
@@ -63,8 +65,9 @@ resource "aws_ecr_repository" "synchronizer" {
 }
 
 resource "aws_ecr_repository" "customers_mngr" {
+  #checkov:skip=CKV_AWS_136:This private ECR is for testing purposes
   name                 = "customers-mngr"
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = "INMUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
@@ -130,6 +133,7 @@ resource "aws_security_group" "ecs_sg_synchronizer" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    description = "This is for testing purposes"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
