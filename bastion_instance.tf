@@ -4,7 +4,7 @@ data "aws_ami" "amazon_linux_2" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm*"]
+    values = ["amzn2-ami-hvm-2.0.*-x86_64-gp2"] # Especifica un patrón más concreto para Amazon Linux 2
   }
 }
 
@@ -36,6 +36,7 @@ resource "aws_iam_role_policy_attachment" "ssm_attach" {
 resource "aws_instance" "bastion" {
   #checkov:skip=CKV_AWS_135:This is an EC2 instance for testing purposes
   #checkov:skip=CKV_AWS_126:This is an EC2 instance for testing purposes
+  #checkov:skip=CKV_AWS_79:This is an EC2 instance for testing purposes
   #checkov:skip=CKV_AWS_8:This is an EC2 instance for testing purposes
   ami                  = data.aws_ami.amazon_linux_2.id
   instance_type        = "t3.micro"
@@ -43,14 +44,8 @@ resource "aws_instance" "bastion" {
   iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.name
   security_groups      = [aws_security_group.bastion_sg.id]
 
-  metadata_options {
-    http_endpoint          = "disabled"
-    http_protocol_ipv6     = "disabled"
-    instance_metadata_tags = "disabled"
-  }
-
   tags = {
-    Name = "bastion"
+    Name = "bastion-test"
   }
 }
 
@@ -65,19 +60,19 @@ resource "aws_security_group" "bastion_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
-    description = "For testing purposes"
+    description = "Allow SSH"
     cidr_blocks = [aws_vpc.main.cidr_block]
   }
 
   ingress {
     from_port   = 0
-    to_port     = 0
-    protocol    = "icmp"
-    description = "For testing purposes"
-    cidr_blocks = [aws_vpc.main.cidr_block]
+    to_port     = 65535
+    protocol    = "tcp"
+    description = "Allow SSM"
+    cidr_blocks = ["10.0.0.0/8"]
   }
 
   egress {

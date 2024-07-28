@@ -48,6 +48,13 @@ resource "aws_ecs_service" "customers_mngr" {
     container_name   = "customers-mngr"
     container_port   = 80
   }
+
+  lifecycle {
+    ignore_changes = [
+      desired_count,
+      task_definition
+    ]
+  }
 }
 
 resource "aws_ecr_repository" "synchronizer" {
