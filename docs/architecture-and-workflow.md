@@ -37,7 +37,6 @@ Otros servicios importantes que participan en la funcionalidad principal de la s
 - **Certificate Manager**: Donde se crea el certificado SSL a asociar en el balanceador de aplicación.
 - **KMS**: Para garantizar integridad de la data en RDS y Secrets Manager, manteniendo encriptados ambos con una CMK.
 - **Secrets Manager**: Donde se almacenan las credenciales del usuario admin de la base de datos RDS.
-- **EventBridge**: Aquí se encuentra configurada la programación de ejecución del micro-servicio `synchronicer`.
 - **ECR**: Para el registro de imágenes de Docker de ambos micro-servicios: `synchronizer` y `customers-mngr`. Adicionalmente en este mismo servicio se analizan las imágenes para detección de vulnerabilidades.
 - **EC2**: Para una instancia bastion de pruebas que permita desde el interior de la red privada, probar la visibilidad y funcionalidad correcta de los servicios.
 

@@ -31,18 +31,6 @@ resource "aws_ecs_task_definition" "dummy_task" {
 DEFINITION
 }
 
-resource "aws_ecs_service" "synchronizer" {
-  name            = "synchronizer"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.dummy_task.arn
-  desired_count   = 0
-  launch_type     = "FARGATE"
-  network_configuration {
-    subnets         = [aws_subnet.private_a.id, aws_subnet.private_b.id]
-    security_groups = [aws_security_group.ecs_sg_synchronizer.id]
-  }
-}
-
 resource "aws_ecs_service" "customers_mngr" {
   name            = "customers-mngr"
   cluster         = aws_ecs_cluster.main.id
@@ -123,20 +111,6 @@ EOF
 resource "aws_iam_role_policy_attachment" "attach_read_secrets_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = aws_iam_policy.read_secrets_policy.arn
-}
-
-resource "aws_security_group" "ecs_sg_synchronizer" {
-  name        = "ecs_sg_synchronizer"
-  description = "Allow traffic for synchronizer ECS service"
-  vpc_id      = aws_vpc.main.id
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    description = "This is for testing purposes"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
 resource "aws_security_group" "ecs_sg_customers_mngr" {
