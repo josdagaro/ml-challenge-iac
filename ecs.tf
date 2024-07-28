@@ -174,11 +174,15 @@ resource "aws_security_group_rule" "ecs_sg_customers_mngr_ingress_1" {
 }
 
 resource "aws_cloudwatch_log_group" "syncer_log_group" {
+  #checkov:skip=CKV_AWS_338:This CloudWatch log group is for testing purposes
+  #checkov:skip=CKV_AWS_158:This CloudWatch log group is for testing purposes
   name              = "/ecs/syncer"
   retention_in_days = 7
 }
 
 resource "aws_cloudwatch_log_group" "customers_mngr_log_group" {
+  #checkov:skip=CKV_AWS_338:This CloudWatch log group is for testing purposes
+  #checkov:skip=CKV_AWS_158:This CloudWatch log group is for testing purposes
   name              = "/ecs/customers-mngr"
   retention_in_days = 7
 }
