@@ -36,6 +36,7 @@ resource "aws_iam_role_policy_attachment" "ssm_attach" {
 resource "aws_instance" "bastion" {
   #checkov:skip=CKV_AWS_135:This is an EC2 instance for testing purposes
   #checkov:skip=CKV_AWS_126:This is an EC2 instance for testing purposes
+  #checkov:skip=CKV_AWS_79:This is an EC2 instance for testing purposes
   #checkov:skip=CKV_AWS_8:This is an EC2 instance for testing purposes
   ami                  = data.aws_ami.amazon_linux_2.id
   instance_type        = "t3.micro"
