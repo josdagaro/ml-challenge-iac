@@ -73,7 +73,6 @@ resource "aws_security_group" "rds_sg" {
 
     security_groups = [
       aws_security_group.ecs_sg_customers_mngr.id,
-      aws_security_group.ecs_sg_synchronizer.id,
       aws_security_group.bastion_sg.id
     ]
   }
@@ -86,7 +85,6 @@ resource "aws_security_group" "rds_sg" {
 
     security_groups = [
       aws_security_group.ecs_sg_customers_mngr.id,
-      aws_security_group.ecs_sg_synchronizer.id,
       aws_security_group.bastion_sg.id
     ]
   }
