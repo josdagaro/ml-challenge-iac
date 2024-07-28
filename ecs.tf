@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "dummy_task" {
   container_definitions = <<DEFINITION
 [
   {
-    "name": "dummy-container",
+    "name": "customers-mngr",
     "image": "amazon/amazon-ecs-sample",
     "essential": true,
     "memory": 256,
@@ -37,9 +37,16 @@ resource "aws_ecs_service" "customers_mngr" {
   task_definition = aws_ecs_task_definition.dummy_task.arn
   desired_count   = 0
   launch_type     = "FARGATE"
+
   network_configuration {
     subnets         = [aws_subnet.private_a.id, aws_subnet.private_b.id]
     security_groups = [aws_security_group.ecs_sg_customers_mngr.id]
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.customers_mngr_tg.arn
+    container_name   = "customers-mngr"
+    container_port   = 80
   }
 }
 
