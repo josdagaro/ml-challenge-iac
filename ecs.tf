@@ -172,3 +172,13 @@ resource "aws_security_group_rule" "ecs_sg_customers_mngr_ingress_1" {
   security_group_id        = aws_security_group.ecs_sg_customers_mngr.id
   source_security_group_id = aws_security_group.bastion_sg.id
 }
+
+resource "aws_cloudwatch_log_group" "syncer_log_group" {
+  name              = "/ecs/syncer"
+  retention_in_days = 7
+}
+
+resource "aws_cloudwatch_log_group" "customers_mngr_log_group" {
+  name              = "/ecs/customers-mngr"
+  retention_in_days = 7
+}
